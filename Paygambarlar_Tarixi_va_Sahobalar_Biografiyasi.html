@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payg‘ambarlar Tarixi va Ulug‘ Sahobalar Biografiyasi</title>
+<style>
+  :root {
+    --bg: #f7f3eb;
+    --text: #2c2416;
+    --accent: #8b5a2b;
+    --accent2: #5c3a1e;
+    --card: #fffdf8;
+    --border: #e6d7c0;
+    --sidebar: #2f2118;
+    --gold: #c9a227;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17.5px;
+    overflow-x: hidden;
+  }
+  .book-container { display: flex; min-height: 100vh; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 310px;
+    background: var(--sidebar);
+    color: #f0e4d0;
+    padding: 22px 16px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 100;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+  }
+  .sidebar h2 {
+    font-size: 1.25rem;
+    margin-bottom: 18px;
+    color: var(--gold);
+    border-bottom: 1px solid #5a4330;
+    padding-bottom: 10px;
+    animation: fadeInLeft 0.6s ease;
+  }
+  .sidebar a {
+    display: block;
+    color: #e0d0b5;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 3px 0;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-15px);
+    animation: fadeInLeft 0.5s ease forwards;
+  }
+  .sidebar a:nth-child(1) { animation-delay: 0.05s; }
+  .sidebar a:nth-child(2) { animation-delay: 0.1s; }
+  .sidebar a:nth-child(3) { animation-delay: 0.15s; }
+  .sidebar a:hover {
+    background: #4a3525;
+    color: #fff;
+    transform: translateX(6px);
+    padding-left: 18px;
+  }
+  .sidebar a.active {
+    background: linear-gradient(90deg, #5c3a1e, #8b5a2b);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(139,90,43,0.3);
+  }
+  .sidebar .part {
+    margin-top: 18px;
+    font-weight: bold;
+    color: var(--gold);
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeInLeft 0.5s ease forwards;
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    margin-left: 310px;
+    flex: 1;
+    padding: 35px 50px 80px;
+    max-width: 880px;
+  }
+
+  /* Cover */
+  .cover {
+    text-align: center;
+    padding: 60px 30px;
+    background: linear-gradient(145deg, #2f2118, #5c3a1e);
+    color: #f5e9d6;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    animation: coverIn 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(201,162,39,0.15) 0%, transparent 60%);
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+  .cover h1 {
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+    line-height: 1.35;
+    position: relative;
+    animation: fadeUp 0.8s 0.3s both;
+  }
+  .cover p {
+    font-size: 1.1rem;
+    opacity: 0.92;
+    position: relative;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+
+  /* Chapters */
+  .chapter {
+    background: var(--card);
+    padding: 34px 38px;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .chapter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .chapter:hover {
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+  }
+
+  h2 {
+    color: var(--accent2);
+    font-size: 1.85rem;
+    margin: 0 0 20px;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 8px;
+    position: relative;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+  .chapter.visible h2::after { width: 80px; }
+
+  h3 {
+    color: var(--accent);
+    font-size: 1.4rem;
+    margin: 30px 0 14px;
+  }
+  h4 {
+    color: #6b4e35;
+    font-size: 1.15rem;
+    margin: 22px 0 10px;
+  }
+  p { margin-bottom: 15px; text-align: justify; }
+
+  .quote {
+    background: #f2ebe0;
+    border-right: 5px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0;
+    font-style: italic;
+    border-radius: 0 12px 12px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote::before {
+    content: '“';
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    font-size: 4rem;
+    color: rgba(139,90,43,0.15);
+    font-family: Georgia, serif;
+  }
+
+  .note {
+    background: #eef6ee;
+    border: 1px solid #b7d4b7;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+
+  /* Menu button */
+  .menu-btn {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    background: var(--sidebar);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+  }
+  .menu-btn:hover { transform: scale(1.08); background: #5c3a1e; }
+
+  /* Progress */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    width: 0%;
+    z-index: 999;
+    transition: width 0.15s linear;
+    box-shadow: 0 0 10px rgba(201,162,39,0.5);
+  }
+
+  /* Back to top */
+  .back-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--sidebar);
+    color: var(--gold);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 90;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .back-top.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .back-top:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-4px);
+  }
+
+  /* Animations keyframes */
+  @keyframes fadeInLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes coverIn {
+    from { opacity: 0; transform: scale(0.92) translateY(30px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-105%); }
+    .sidebar.open { transform: translateX(0); }
+    .content { margin-left: 0; padding: 28px 18px 70px; }
+    .menu-btn { display: block; }
+    .cover h1 { font-size: 1.7rem; }
+    .back-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px;
+    color: #7a6a55;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.8s;
+  }
+  footer.visible { opacity: 1; }
+
+  ul { margin: 12px 0 12px 28px; }
+  li { margin-bottom: 7px; transition: transform 0.3s; }
+  li:hover { transform: translateX(5px); }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress"></div>
+<button class="menu-btn" onclick="toggleSidebar()" aria-label="Menyu">☰</button>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="book-container">
+  <nav class="sidebar" id="sidebar">
+    <h2>Mundarija</h2>
+    <a href="#cover">Muqova</a>
+    <a href="#kirish">Kirish so‘z</a>
+    
+    <div class="part">I QISM: PAYG‘AMBARLAR</div>
+    <a href="#odam">Odam (a.s.)</a>
+    <a href="#idris">Idris (a.s.)</a>
+    <a href="#nuh">Nuh (a.s.)</a>
+    <a href="#hud">Hud (a.s.)</a>
+    <a href="#solih">Solih (a.s.)</a>
+    <a href="#ibrohim">Ibrohim (a.s.)</a>
+    <a href="#lut">Lut (a.s.)</a>
+    <a href="#ismoil">Ismoil (a.s.)</a>
+    <a href="#ishoq">Is‘hoq (a.s.)</a>
+    <a href="#yaqub">Ya’qub (a.s.)</a>
+    <a href="#yusuf">Yusuf (a.s.)</a>
+    <a href="#ayyub">Ayyub (a.s.)</a>
+    <a href="#shuayb">Shuayb (a.s.)</a>
+    <a href="#muso">Muso (a.s.)</a>
+    <a href="#horun">Horun (a.s.)</a>
+    <a href="#zulkifl">Zulkifl (a.s.)</a>
+    <a href="#dovud">Dovud (a.s.)</a>
+    <a href="#sulaymon">Sulaymon (a.s.)</a>
+    <a href="#ilyos">Ilyos (a.s.)</a>
+    <a href="#alyasa">Alyasa’ (a.s.)</a>
+    <a href="#yunus">Yunus (a.s.)</a>
+    <a href="#zakariyyo">Zakariyyo (a.s.)</a>
+    <a href="#yahyo">Yahyo (a.s.)</a>
+    <a href="#iso">Iso (a.s.)</a>
+    <a href="#muhammad">Muhammad (s.a.v.)</a>
+    
+    <div class="part">II QISM: 10 SAHOBA</div>
+    <a href="#abubakr">Abu Bakr Siddiq (r.a.)</a>
+    <a href="#umar">Umar ibn Xattob (r.a.)</a>
+    <a href="#ali">Ali ibn Abu Tolib (r.a.)</a>
+    <a href="#hamza">Hamza (r.a.)</a>
+    <a href="#xolid">Xolid ibn Valid (r.a.)</a>
+    <a href="#abuubayda">Abu Ubayda (r.a.)</a>
+    <a href="#sad">Sa’d ibn Abu Vaqqos (r.a.)</a>
+    <a href="#bilol">Bilol ibn Raboh (r.a.)</a>
+    <a href="#ikrama">Ikrama ibn Abu Jahl (r.a.)</a>
+    <a href="#vahshiy">Vahshiy ibn Harb (r.a.)</a>
+    
+    <div class="part">III QISM</div>
+    <a href="#galereya">Boshqa ulug‘ sahobalar</a>
+    <a href="#xotima">Xotima – 7 xulosa</a>
+  </nav>
+
+  <main class="content">
+    <!-- COVER -->
+    <section id="cover" class="cover">
+      <h1>Payg‘ambarlar Tarixi<br>va<br>Ulug‘ Sahobalar Biografiyasi</h1>
+      <p>Islom tarixidagi eng ulug‘ siymolar hayoti, da’vati, sinovlari va ibratlari</p>
+      <p style="margin-top:18px; font-size:0.95rem; opacity:0.8;">Adabiy va ilmiy-ommabop uslubda</p>
+    </section>
+
+    <!-- KIRISH -->
+    <section id="kirish" class="chapter">
+      <h2>Kirish so‘z</h2>
+      <p>Bismillahir Rohmanir Rohim.</p>
+      <p>Alloh Taolo Qur’oni Karimda ko‘p oyatlarida o‘tgan payg‘ambarlar qissalarini zikr qilgan. Bu qissalar faqat tarixiy xotiralar emas, balki har bir davr insoni uchun tirik ibrat, sabr maktabi, tavba yo‘li va haqiqatga chaqiruvdir. Payg‘ambarlar (alayhimussalom) insoniyatga Allohning yo‘lini ko‘rsatgan eng mukammal namuna edilar. Ularning hayoti – imon, sabr, tavakkul, adolat va rahm-shafqatning jonli darslaridir.</p>
+      <p>Sahobalar (roziyallohu anhum) esa bu nurli yo‘lni eng yaqin kuzatgan, eng qattiq sinovlardan o‘tgan va islomni butun olamga yetkazgan avloddir. Ularning har biri – alohida bir maktab. Kimdir ilm bilan, kimdir jasorat bilan, kimdir sabr bilan, kimdir tavba va sadoqat bilan o‘rnak bo‘ldi.</p>
+      <p>Bu kitobda siz:</p>
+      <ul>
+        <li>Payg‘ambarlar hayotini xronologik va ibratli jihatlari bilan;</li>
+        <li>O‘nta ulug‘ sahobaning to‘liq biografiyasini;</li>
+        <li>Boshqa ko‘plab sahobalarning xizmatlari va fazilatlarini;</li>
+        <li>Bugungi kunda qo‘llash mumkin bo‘lgan amaliy xulosalarni</li>
+      </ul>
+      <p>topasiz. Kitobni o‘qishda shoshilmang. Har bir bobni o‘ylab, o‘z hayotingizga qiyoslab o‘qing. Allohning roziligini tilab, foydali bo‘lishini so‘raymiz.</p>
+      <div class="note">
+        <strong>Eslatma:</strong> Barcha payg‘ambarlar ismlari yonida <em>alayhissalom</em> (a.s.), sahobalar ismlari yonida <em>roziyallohu anhu / anho</em> (r.a.) deb yozilgan. Bu odob va hurmat belgisi sifatida saqlangan.
+      </div>
+    </section>
+
+    <!-- ODAM -->
+    <section id="odam" class="chapter">
+      <h2>I QISM: PAYG‘AMBARLAR TARIXI</h2>
+      <h3>1. Odam (alayhissalom)</h3>
+      <h4>Insoniyatning yaratilishi</h4>
+      <p>Alloh Taolo osmonlarni va yerni yaratganidan so‘ng, o‘zining xalifasi sifatida insonni yaratishni xohladi. Farishtalarga: «Men yer yuzida xalifa yaratmoqchiman», – dedi. Farishtalar: «U yer yuzida buzg‘unchilik qiladi va qon to‘kar. Biz esa Seni maqtab, poklab yuramiz», – dedilar. Alloh: «Men bilgan narsani siz bilmaysiz», – deb javob berdi (Baqara, 30).</p>
+      <p>So‘ngra Alloh Odam (a.s.)ni tuproqdan yaratdi, unga ruh berdi va barcha narsalarning ismlarini o‘rgatdi. Farishtalarga Odam (a.s.)ga sajda qilishni buyurdi. Barcha farishtalar sajda qildilar, faqat Iblis kibr qilib, bosh tortadi. Shu sababli u la’natlandi. Lekin u Odam (a.s.) va uning avlodlarini yo‘ldan urish uchun muddat so‘radi.</p>
+      <h4>Jannatdagi hayot va sinov</h4>
+      <p>Alloh Odam (a.s.)ni va uning jufti Havvo (a.s.)ni jannatga joylashtirdi. Ularga barcha ne’matlardan foydalanishga ruxsat berdi, faqat bir daraxtning mevasini yemasinlar, deb ogohlantirdi. Shayton hasad va kibr bilan ularni aldadi. Ular taqiqlangan meva yedilar. Shu zahoti ularning awratlari ochilib qoldi. Ular barglar bilan yopindilar va Allohdan kechirim so‘radilar.</p>
+      <p>Alloh ularning tavbasini qabul qildi, lekin ularni yer yuziga tushirdi. Bu – insoniyat uchun birinchi sabr va tavba darsi edi. Odam (a.s.) yer yuzida birinchi payg‘ambar bo‘lib, farzandlariga Allohning birligini, ibodatni va yaxshi axloqni o‘rgatdi.</p>
+      <div class="quote">
+        «Robbimiz! Biz o‘zimizga zulm qildik. Agar Sen bizni kechirmasang va bizga rahm qilmasang, albatta, ziyon ko‘rganlardan bo‘lamiz.» (A’rof, 23)
+      </div>
+      <h4>Asosiy ibratlar</h4>
+      <ul>
+        <li>Kibr – eng katta gunohlardan biri (Iblis misoli).</li>
+        <li>Tavba qilish – Allohning eng sevimli amallaridan.</li>
+        <li>Inson xato qilishi mumkin, lekin qaytish yo‘li ochiq.</li>
+        <li>Yer yuzidagi hayot – sinov maydoni.</li>
+      </ul>
+    </section>
+
+    <!-- IDRIS -->
+    <section id="idris" class="chapter">
+      <h3>2. Idris (alayhissalom)</h3>
+      <p>Idris (a.s.) – Odam (a.s.) avlodidan, Nuh (a.s.)dan oldin yashagan payg‘ambar. Qur’onda u «siddiq» va «nabiy» deb zikr etilgan (Maryam, 56-57). U ilm, yozuv, hisob va hikmat sohibi edi. Ba’zi rivoyatlarda u birinchi bo‘lib qalam bilan yozgan, tikuvchilikni o‘rgatgan va yulduzlar ilmini bilgan deb aytiladi.</p>
+      <p>U qavmini Allohning birligiga chaqirdi, yaxshi axloqqa undadi. Alloh uni yuqori maqomga ko‘tardi.</p>
+      <h4>Ibrat</h4>
+      <p>Ilm – nur. Idris (a.s.) misolida ko‘ramizki, haqiqiy ilm insonni Allohga yaqinlashtiradi va uni yuksak maqomga erishtiradi.</p>
+    </section>
+
+    <!-- NUH -->
+    <section id="nuh" class="chapter">
+      <h3>3. Nuh (alayhissalom)</h3>
+      <p>Nuh (a.s.) – «ikkinchi Odam» deb ataladi. U o‘z qavmini 950 yil davomida Allohning birligiga chaqirdi. Qavmi butparast edi. Nuh (a.s.) ularni kecha-kunduz, ochiq va yashirin da’vat qildi. Lekin faqat ozgina kishi iymon keltirdi.</p>
+      <p>Alloh unga kemani yasashni buyurdi. Nuh (a.s.) tog‘da kema yasadi. Qavmi uni masxara qildi. So‘ngra buyuk to‘fon keldi. Iymon keltirganlar va har jinsdan bir juft hayvon kemaga mindi. Kofirlar, hatto Nuh (a.s.)ning o‘z o‘g‘li ham, g‘arq bo‘ldi.</p>
+      <div class="quote">
+        «Ey o‘g‘lim! Biz bilan birga min, kofirlar bilan birga bo‘lma!» (Hud, 42)
+      </div>
+      <p>To‘fon tugagach, kema Judiy tog‘iga qo‘ndi. Nuh (a.s.) va u bilan bo‘lganlar yangi hayot boshladilar.</p>
+      <h4>Asosiy ibratlar</h4>
+      <ul>
+        <li>Sabr – da’vatning eng muhim sharti.</li>
+        <li>Qon-qarindoshlik iymondan ustun emas.</li>
+        <li>Allohning azobi haq, lekin rahmati kengroq.</li>
+        <li>Ozchilik haq yo‘lda bo‘lsa, ko‘pchilikdan ustun.</li>
+      </ul>
+    </section>
+
+    <!-- HUD -->
+    <section id="hud" class="chapter">
+      <h3>4. Hud (alayhissalom)</h3>
+      <p>Hud (a.s.) – Od qavmining payg‘ambari. Od qavmi baland bo‘yli, kuchli, boy va mag‘rur xalq edi. Ular Adramavt atrofida yashar, ulkan binolar qurar, lekin Allohni unutib, butlarga sig‘inar edilar.</p>
+      <p>Hud (a.s.) ularni tavhidga chaqirdi, kibr va zulmdan qaytardi. Ular masxara qildilar. Oxir-oqibat Alloh ularga qattiq shamol (sarsar) yubordi. Ettikun davom etgan shamol ularni butunlay yo‘q qildi.</p>
+      <h4>Ibrat</h4>
+      <p>Kuch va boylik – sinov. Mag‘rurlik insonni halokatga olib boradi. Haqiqiy kuch – Allohga bo‘ysunishdadir.</p>
+    </section>
+
+    <!-- SOLIH -->
+    <section id="solih" class="chapter">
+      <h3>5. Solih (alayhissalom)</h3>
+      <p>Solih (a.s.) – Samud qavmining payg‘ambari. Ular Hijozning shimolida, toshlardan uylar o‘yib yashar edilar. Alloh ularga mo‘jiza sifatida toshdan tuya chiqardi. Solih (a.s.) ularni ogohlantirdi: «Bu tuyaga tegmang».</p>
+      <p>Lekin qavmdan bir guruh tuya oyog‘ini kesib o‘ldirdi. Alloh ularga uch kun muhlat berdi. Uchinchi kuni qattiq qichqiriq kelib, ularni o‘ldirdi.</p>
+      <h4>Ibrat</h4>
+      <p>Mo‘jizani ko‘rib turib inkor qilish – eng og‘ir kufr. Allohning belgilarini mensimaslik azobga sabab bo‘ladi.</p>
+    </section>
+
+    <!-- IBROHIM -->
+    <section id="ibrohim" class="chapter">
+      <h3>6. Ibrohim (alayhissalom)</h3>
+      <p>Ibrohim (a.s.) – «Xalilulloh» (Allohning do‘sti). U Bobilda yashagan. Otasi Ozara but yasovchi edi. Ibrohim (a.s.) yoshlikdanoq yulduz, oy va quyoshga sig‘inishni rad etib, faqat bir Allohga iymon keltirdi.</p>
+      <p>U butlarni sindirdi. Qavmi uni o‘tga tashladi. Alloh o‘tni salqin qilib, uni saqladi. Keyin u Shamga, so‘ng Hijozga hijrat qildi. Alloh unga qarilikda Ismoil va Is‘hoq (a.s.)ni berdi.</p>
+      <p>Eng buyuk sinovi – o‘g‘li Ismoil (a.s.)ni qurbonlik qilish buyrug‘i edi. Ibrohim (a.s.) va Ismoil (a.s.) Allohga bo‘ysundilar. Alloh o‘rniga qo‘y berdi. Shu voqea Qurbon hayitining asosi bo‘ldi.</p>
+      <p>Ibrohim (a.s.) Ka’bani Ismoil (a.s.) bilan birga qurdi.</p>
+      <div class="quote">
+        «Men yuzimni osmonlar va yerni yaratgan Zotga qaratdim va men mushriklardan emasman.» (An’om, 79)
+      </div>
+      <h4>Asosiy ibratlar</h4>
+      <ul>
+        <li>Tavhid – barcha dinlarning asosi.</li>
+        <li>Ota-onaga hurmat, lekin Allohga itoat birinchi o‘rinda.</li>
+        <li>Qurbonlik – Alloh yo‘lida eng aziz narsadan kechish.</li>
+        <li>Sabr va tavakkul – muvaffaqiyat kaliti.</li>
+      </ul>
+    </section>
+
+    <!-- LUT -->
+    <section id="lut" class="chapter">
+      <h3>7. Lut (alayhissalom)</h3>
+      <p>Lut (a.s.) – Ibrohim (a.s.)ning jiyani. U Sadum va atrofidagi shaharlarga payg‘ambar qilib yuborilgan. Qavmi g‘ayritabiiy fahsh ishlar bilan mashhur edi. Lut (a.s.) ularni qoraladi.</p>
+      <p>Alloh farishtalarni yubordi. Tongda shaharlar tag‘in-ustun qilib, toshlar yog‘dirildi. Lut (a.s.) va oilasi (xotinidan tashqari) saqlanib qoldi.</p>
+      <h4>Ibrat</h4>
+      <p>Tabiatga zid gunohlar Allohning qahrini keltiradi. Jamiyatda axloq buzilishi – halokat belgisi.</p>
+    </section>
+
+    <!-- ISMOIL -->
+    <section id="ismoil" class="chapter">
+      <h3>8. Ismoil (alayhissalom)</h3>
+      <p>Ismoil (a.s.) – Ibrohim (a.s.)ning katta o‘g‘li, arablarning ajdodi. Onasi Hojar (a.s.) bilan Makka vodiysiga keltirilgan. Suv izlab, Safо va Marva orasida yugurgan Hojar (a.s.)ning harakati – sa’y ibodatining asosi. Zamzam suvi chiqqan.</p>
+      <p>Ismoil (a.s.) ota bilan Ka’bani qurgan, qurbonlik sinovidan o‘tgan. U sabrli, itoatkor va yaxshi xulqli edi.</p>
+    </section>
+
+    <!-- ISHQOQ -->
+    <section id="ishoq" class="chapter">
+      <h3>9. Is‘hoq (alayhissalom)</h3>
+      <p>Is‘hoq (a.s.) – Ibrohim (a.s.)ning ikkinchi o‘g‘li, onasi Sora (a.s.). U Bani Isroilning ajdodi. Alloh uni payg‘ambar qilib, baraka bergan. Uning o‘g‘li Ya’qub (a.s.) – Isroil deb atalgan.</p>
+    </section>
+
+    <!-- YAQUB -->
+    <section id="yaqub" class="chapter">
+      <h3>10. Ya’qub (alayhissalom)</h3>
+      <p>Ya’qub (a.s.) – Is‘hoq (a.s.)ning o‘g‘li, Yusuf (a.s.)ning otasi. U o‘n ikki o‘g‘il ko‘rgan. Yusuf (a.s.)ni juda sevgani uchun aka-ukalar hasad qilib, uni quduqqa tashladilar. Ya’qub (a.s.) ko‘p yillar o‘g‘li hasratida yig‘lab, ko‘zlari ojiz bo‘lib qoldi. Lekin sabr qildi. Oxirida Yusuf (a.s.) bilan uchrashib, ko‘zlari ochildi.</p>
+      <div class="quote">
+        «Sabrdan boshqa narsa yo‘q. Allohga shikoyat qilaman.» (Yusuf, 18)
+      </div>
+    </section>
+
+    <!-- YUSUF -->
+    <section id="yusuf" class="chapter">
+      <h3>11. Yusuf (alayhissalom)</h3>
+      <p>Yusuf (a.s.) – go‘zallik, sabr va afv timsoli. Aka-ukalari uni quduqqa tashlab, misrlik savdogarlarga sotdilar. U Misrda azizning uyida xizmat qildi. Azizning xotini uni fitnaga solmoqchi bo‘ldi, lekin u o‘zini saqladi va qamoqqa tashlandi.</p>
+      <p>Qamoqda tush ta’bir qilib, shohning tushini to‘g‘ri izohladi. Shu sababli Misrning moliyaviy ishlariga boshliq qilib qo‘yildi. Qurg‘oqchilik yillarida xalqni ochlikdan saqladi. Oxirida aka-ukalari bilan uchrashib, ularni kechirdi.</p>
+      <h4>Asosiy ibratlar</h4>
+      <ul>
+        <li>Hasad – eng xavfli kasallik.</li>
+        <li>Iffat va poklik – yuksak maqomga olib boradi.</li>
+        <li>Sabrning oxiri – najot va izzat.</li>
+        <li>Kechirim – buyuklik belgisi.</li>
+      </ul>
+    </section>
+
+    <!-- AYYUB -->
+    <section id="ayyub" class="chapter">
+      <h3>12. Ayyub (alayhissalom)</h3>
+      <p>Ayyub (a.s.) – sabrning eng buyuk namoyondasi. Alloh unga boylik, farzandlar va sog‘liq bergan edi. Keyin barcha ne’matlarni olib, og‘ir kasallik bilan sinadi. Tanasi yaralar bilan qoplandi, yaqinlari uni tark etdi. Lekin u Allohga shikoyat qilmasdan, sabr qildi.</p>
+      <p>Yillar o‘tgach, Alloh uni shifo berib, boyligi va farzandlarini qaytardi, hatto ko‘proq berdi.</p>
+      <div class="quote">
+        «Meni zarar yetkazdi, Sen eng rahmli bo‘lganlarsan.» (Anbiyo, 83)
+      </div>
+    </section>
+
+    <!-- SHUAYB -->
+    <section id="shuayb" class="chapter">
+      <h3>13. Shuayb (alayhissalom)</h3>
+      <p>Shuayb (a.s.) – Madyan qavmining payg‘ambari. Ular savdo-sotiqda o‘g‘rilik, tarozida kam tortish bilan mashhur edi. Shuayb (a.s.) ularni adolatga chaqirdi. Ular masxara qildilar. Alloh ularga qattiq azob yuborib, yo‘q qildi.</p>
+    </section>
+
+    <!-- MUSO -->
+    <section id="muso" class="chapter">
+      <h3>14. Muso (alayhissalom)</h3>
+      <p>Muso (a.s.) – eng ko‘p zikr qilingan payg‘ambar. U Fir’avn davrida tug‘ilgan. Onasi uni daryoga qo‘yib yuborgan, Fir’avnning xotini Osiya (r.a.) topib olib, tarbiya qilgan.</p>
+      <p>Yoshi yetganda bir misrlikni o‘ldirib qo‘yib, Madyanga qochgan. U yerda Shuayb (a.s.)ning qiziga uylangan. Keyin Alloh uni Turi Sino tog‘ida payg‘ambar qilib, Fir’avnga yuborgan.</p>
+      <p>Asosi mo‘jizalari: tayoqning ilonga aylanishi, qo‘lining oqarishi, dengizning yorilishi. Bani Isroilni Misrdan olib chiqqan. Turi Sino tog‘ida Tavrot nozil bo‘lgan.</p>
+      <h4>Asosiy ibratlar</h4>
+      <ul>
+        <li>Zulm barqaror turmaydi.</li>
+        <li>Allohning yordami haq yo‘ldagilar bilan.</li>
+        <li>Rahbarlik – mas’uliyat va sabr talab qiladi.</li>
+      </ul>
+    </section>
+
+    <!-- HORUN -->
+    <section id="horun" class="chapter">
+      <h3>15. Horun (alayhissalom)</h3>
+      <p>Horun (a.s.) – Muso (a.s.)ning akasi, uning yordamchisi. U ravon so‘zli, yumshoq xulqli edi. Muso (a.s.) Allohdan uni vazir qilib berishini so‘ragan. Horun (a.s.) Bani Isroilga nasihat qilgan.</p>
+    </section>
+
+    <!-- ZULKIFL -->
+    <section id="zulkifl" class="chapter">
+      <h3>16. Zulkifl (alayhissalom)</h3>
+      <p>Zulkifl (a.s.) – sabrli va va’daga vafoli payg‘ambar. Qur’onda Ayyub (a.s.) bilan birga zikr etilgan. U kuniga ko‘p ibodat qilgan va hech qachon g‘azablanmagan deb rivoyat qilinadi.</p>
+    </section>
+
+    <!-- DOVUD -->
+    <section id="dovud" class="chapter">
+      <h3>17. Dovud (alayhissalom)</h3>
+      <p>Dovud (a.s.) – shoh va payg‘ambar. U Jalutni tosh bilan o‘ldirgan. Alloh unga Zabur kitobini bergan, temirni yumshatishni o‘rgatgan. U go‘zal ovoz bilan Allohni zikr qilgan. Adolatli hukmdor bo‘lgan.</p>
+    </section>
+
+    <!-- SULAYMON -->
+    <section id="sulaymon" class="chapter">
+      <h3>18. Sulaymon (alayhissalom)</h3>
+      <p>Sulaymon (a.s.) – Dovud (a.s.)ning o‘g‘li. Alloh unga shohlik, ilm, shamol va jinlar ustidan hukmronlik bergan. U qushlar tilini bilgan. Bilqis (Saba malikasi) bilan xati orqali iymonga da’vat qilgan. Katta masjidni qurdirgan.</p>
+    </section>
+
+    <!-- ILYOS -->
+    <section id="ilyos" class="chapter">
+      <h3>19. Ilyos (alayhissalom)</h3>
+      <p>Ilyos (a.s.) – Bani Isroil payg‘ambarlaridan. U qavmini Ba’l butidan qaytarib, Allohga chaqirgan.</p>
+    </section>
+
+    <!-- ALYASA -->
+    <section id="alyasa" class="chapter">
+      <h3>20. Alyasa’ (alayhissalom)</h3>
+      <p>Alyasa’ (a.s.) – Ilyos (a.s.)ning shogirdi va vorisi. U ham Bani Isroilni to‘g‘ri yo‘lga chaqirgan.</p>
+    </section>
+
+    <!-- YUNUS -->
+    <section id="yunus" class="chapter">
+      <h3>21. Yunus (alayhissalom)</h3>
+      <p>Yunus (a.s.) – Ninava aholisiga yuborilgan. Ular iymon keltirmagach, u g‘azablanib, joyni tark etgan. Dengizda baliq yutib yuborgan. Qorong‘u qorinda: «La ilaha illa Anta, Subhanaka inni kuntu minaz-zolimin» deb Allohni zikr qilgan. Alloh uni qutqargan. Keyin qavmi iymon keltirib, azobdan qutulgan.</p>
+      <div class="quote">
+        «La ilaha illa Anta, Subhanaka inni kuntu minaz-zolimin.» (Anbiyo, 87)
+      </div>
+    </section>
+
+    <!-- ZAKARIYYO -->
+    <section id="zakariyyo" class="chapter">
+      <h3>22. Zakariyyo (alayhissalom)</h3>
+      <p>Zakariyyo (a.s.) – Yahyo (a.s.)ning otasi. Qarilikda Allohdan farzand so‘ragan. Farishtalar unga Yahyo (a.s.)ning tug‘ilishini bashorat qilgan. U Maryam (a.s.)ning parvarishchisi ham bo‘lgan.</p>
+    </section>
+
+    <!-- YAHYO -->
+    <section id="yahyo" class="chapter">
+      <h3>23. Yahyo (alayhissalom)</h3>
+      <p>Yahyo (a.s.) – pok, taqvodor payg‘ambar. U Iso (a.s.)ning amakivachchasi. Bani Isroilni tavbaga chaqirgan. Zolim shoh tomonidan shahid qilingan.</p>
+    </section>
+
+    <!-- ISO -->
+    <section id="iso" class="chapter">
+      <h3>24. Iso (alayhissalom)</h3>
+      <p>Iso (a.s.) – Maryam (a.s.)ning o‘g‘li, otasiz tug‘ilgan. Alloh uni «Kalimatulloh» va «Ruhulloh» deb atagan. U go‘dakligida so‘zlagan, o‘likni tiriltirgan, ko‘rni ochgan, moxovni tuzatgan. Injil berilgan.</p>
+      <p>Yahudiylar uni o‘ldirmoqchi bo‘lganlar, lekin Alloh uni o‘ziga ko‘targan. U qaytib kelib, Dajjolni o‘ldiradi degan e’tiqod bor.</p>
+      <h4>Ibrat</h4>
+      <p>Iso (a.s.) – oddiylik, rahm-shafqat va ruhoniylik timsoli. U hech qachon o‘zini «Alloh» demagan, balki Allohning bandasi va payg‘ambari ekanini ta’kidlagan.</p>
+    </section>
+
+    <!-- MUHAMMAD -->
+    <section id="muhammad" class="chapter">
+      <h3>25. Xotamul-anbiyo – Muhammad (sollallohu alayhi va sallam)</h3>
+      <p>Muhammad (s.a.v.) – oxirgi payg‘ambar, barcha insoniyatga yuborilgan. 570-yilda Makkada tug‘ilgan. Yetim bo‘lib o‘sgan. 40 yoshida Hiro g‘orida birinchi vahiy kelgan. 13 yil Makkada, 10 yil Madinada da’vat qilgan.</p>
+      <p>Uning da’vati – to‘liq tavhid, adolat, axloq, rahm-shafqat. Qur’on – eng buyuk mo‘jiza. U butun Arabistonni islomga keltirgan.</p>
+      <p>Uning axloqi – Qur’on edi. Sabr, kechirim, oddiylik, jasorat, rahm-shafqat uning hayotining asosi edi. 632-yilda vafot etgan.</p>
+      <div class="quote">
+        «Men yaxshi axloqni mukammal qilish uchun yuborildim.» (Hadis)
+      </div>
+    </section>
+
+    <!-- II QISM -->
+    <section id="abubakr" class="chapter">
+      <h2>II QISM: SAHOBALAR BIOGRAFIYASI</h2>
+      <h3>1. Abu Bakr Siddiq (roziyallohu anhu)</h3>
+      <h4>Tug‘ilishi va islomdan avvalgi hayoti</h4>
+      <p>Abu Bakr (r.a.) – Qurayshning Taym qabilasidan. Asli ismi Abdulloh, laqabi Atiq. Payg‘ambar (s.a.v.)dan ikki yil kichik. Makkada savdo bilan shug‘ullangan, ishonchli, yumshoq xulqli, ko‘p yig‘laydigan kishi edi.</p>
+      <h4>Islomga kirishi</h4>
+      <p>U islomni eng birinchi qabul qilgan erkin kishilardan. Hech ikkilanmasdan iymon keltirgan. Shu sababli «Siddiq» unvonini olgan. Me’roj voqeasini darhol tasdiqlagani mashhur.</p>
+      <h4>Hijratdagi hamrohlik</h4>
+      <p>Hijratda Payg‘ambar (s.a.v.)ning yagona hamrohi. Savr g‘orida uch kun yashirinishgan. U yerda oyoqlarini teshiklarga qo‘yib, Payg‘ambarni himoya qilgan.</p>
+      <h4>Xalifalik davri</h4>
+      <p>Birinchi xalifa (632–634). Ridda urushlarini qat’iyat bilan bostirgan. Qur’onni bir kitob holiga keltirishga buyruq bergan. Oddiy hayot kechirgan.</p>
+      <h4>Fazilatlari</h4>
+      <ul>
+        <li>Eng sevimli do‘st</li>
+        <li>Eng ko‘p molini islom yo‘lida sarflagan</li>
+        <li>Yumshoq, lekin qat’iyatli</li>
+      </ul>
+    </section>
+
+    <section id="umar" class="chapter">
+      <h3>2. Umar ibn Xattob (roziyallohu anhu)</h3>
+      <p>Umar (r.a.) – Qurayshning Adiy qabilasidan. Dastlab islomning ashaddiy dushmani bo‘lgan. To-Ha surasini o‘qib, yuragi yumshab, darhol islomga kirgan.</p>
+      <p>Payg‘ambar (s.a.v.) uni «Foruq» deb atagan. Uning islomga kirishi bilan musulmonlar ochiq namoz o‘qiy boshlagan.</p>
+      <p>Xalifalik davri (634–644) – islomning oltin davri. Fors va Rumning katta qismi fath qilingan. Baytul-mol, sud tizimi, hijriy taqvim joriy etilgan. O‘zi oddiy kiyim kiyib, kechalari Madina ko‘chalarini aylanib, xalq holidan xabar olgan.</p>
+      <div class="quote">
+        «Agar Furot bo‘yida bir qo‘y yo‘qolsa, men undan so‘ralaman, deb qo‘rqaman.»
+      </div>
+    </section>
+
+    <section id="ali" class="chapter">
+      <h3>3. Ali ibn Abu Tolib (roziyallohu anhu)</h3>
+      <p>Ali (r.a.) – Payg‘ambar (s.a.v.)ning amakivachchasi va kuyovi. Bolaligidan Payg‘ambar uyida tarbiya topgan. Eng birinchi bolalardan islomga kirgan. Hijrat kechasida Payg‘ambar (s.a.v.)ning to‘shagida yotib, dushmanlarni aldagan.</p>
+      <p>Badr, Uhud, Xandaq, Xaybar janglarida jasorat ko‘rsatgan. «Ilm shahrining darvozasi» deb atalgan. To‘rtinchi xalifa (656–661). 661-yilda Kufada shahid qilingan.</p>
+    </section>
+
+    <section id="hamza" class="chapter">
+      <h3>4. Hamza ibn Abdulmuttolib (roziyallohu anhu)</h3>
+      <p>Hamza (r.a.) – Payg‘ambar (s.a.v.)ning amakisi, «Asadulloh». Abu Jahlning haqoratini eshitib, islomga kirgan. Badrda jasorat ko‘rsatgan. Uhudda Vahshiy tomonidan shahid qilingan.</p>
+    </section>
+
+    <section id="xolid" class="chapter">
+      <h3>5. Xolid ibn Valid (roziyallohu anhu)</h3>
+      <p>Xolid (r.a.) – «Sayfulloh». Avval dushman, keyin eng buyuk sarkarda. Mu’ta, Yarmuk va Fors yurishlarida g‘alaba qozongan. Hech qachon mag‘lub bo‘lmagan. Oddiy askar sifatida vafot etgan.</p>
+    </section>
+
+    <section id="abuubayda" class="chapter">
+      <h3>6. Abu Ubayda ibn al-Jarroh (roziyallohu anhu)</h3>
+      <p>Abu Ubayda (r.a.) – «Aminul-umma». Badrda o‘z otasini o‘ldirishga majbur bo‘lgan. Shom fathida sarkarda. Vabo paytida xalq bilan birga qolib, vafot etgan.</p>
+    </section>
+
+    <section id="sad" class="chapter">
+      <h3>7. Sa’d ibn Abu Vaqqos (roziyallohu anhu)</h3>
+      <p>Sa’d (r.a.) – islom yo‘lida birinchi kamon otgan sahoba. Duosi ijobat. Qodisiya jangida Fors qo‘shinini mag‘lub etgan. Kufa shahrini asos solgan.</p>
+    </section>
+
+    <section id="bilol" class="chapter">
+      <h3>8. Bilol ibn Raboh (roziyallohu anhu)</h3>
+      <p>Bilol (r.a.) – habashlik qul. Qattiq qiynoqqa solingan, faqat «Ahad, Ahad» degan. Abu Bakr (r.a.) uni ozod qilgan. Islomning birinchi muazzini. Payg‘ambar (s.a.v.) vafotidan keyin azon aytishni to‘xtatgan.</p>
+    </section>
+
+    <section id="ikrama" class="chapter">
+      <h3>9. Ikrama ibn Abu Jahl (roziyallohu anhu)</h3>
+      <p>Ikrama (r.a.) – Abu Jahlning o‘g‘li. Avval ashaddiy dushman. Makka fathidan keyin islomga kirgan va chinakam mo‘minga aylangan. Yarmukda shahid bo‘lgan.</p>
+    </section>
+
+    <section id="vahshiy" class="chapter">
+      <h3>10. Vahshiy ibn Harb (roziyallohu anhu)</h3>
+      <p>Vahshiy (r.a.) – Hamza (r.a.)ni o‘ldirgan kishi. Keyin islomga kirgan. Payg‘ambar (s.a.v.) uni kechirgan. Yamomа jangida Musaylima Kazzobni o‘ldirgan.</p>
+    </section>
+
+    <!-- GALEREYA -->
+    <section id="galereya" class="chapter">
+      <h2>III QISM: BOSHQA ULUG‘ SAHOBALAR GALEREYASI</h2>
+      <p><strong>Usmon ibn Affon (r.a.)</strong> – ikkinchi xalifa, «Zunnurayn». Qur’onni bir nusxaga keltirgan. Juda hayoli va saxiy.</p>
+      <p><strong>Zubayr ibn Avvom (r.a.)</strong> – jannat bilan bashorat qilingan o‘ntadan, jasur sarkarda.</p>
+      <p><strong>Talha ibn Ubaydulloh (r.a.)</strong> – Uhudda Payg‘ambarni o‘z tanasi bilan himoya qilgan.</p>
+      <p><strong>Abdurahmon ibn Avf (r.a.)</strong> – boy sahoba, ko‘p molini islom yo‘lida sarflagan.</p>
+      <p><strong>Abdulloh ibn Mas’ud (r.a.)</strong> – Qur’onni eng yaxshi o‘qiydigan, fiqhda chuqur.</p>
+      <p><strong>Abdulloh ibn Umar (r.a.)</strong> – sunnatga eng qattiq amal qiladigan sahoba.</p>
+      <p><strong>Abdulloh ibn Abbos (r.a.)</strong> – «Tarjimonul-Qur’on», ilm dengizi.</p>
+      <p><strong>Muoz ibn Jabal (r.a.)</strong> – halol-haromni eng yaxshi biladigan.</p>
+      <p><strong>Salmon al-Forsiy (r.a.)</strong> – Xandaq g‘oyasini bergan, «Ahlul-bayt»dan deb atalgan.</p>
+      <p><strong>Ammor ibn Yosir (r.a.)</strong> – qiynoqlarga sabr qilgan.</p>
+      <p><strong>Mus’ab ibn Umayr (r.a.)</strong> – Makkaning eng boy yigiti edi, islom yo‘lida kechgan, Uhudda shahid.</p>
+      <p><strong>Oisha binti Abu Bakr (r.a.)</strong> – eng ko‘p hadis rivoyat qilgan, fiqhda olima.</p>
+      <p><strong>Fotima binti Muhammad (r.a.)</strong> – Payg‘ambar (s.a.v.)ning eng sevimli qizi, jannat ayollarining sayyidasi.</p>
+    </section>
+
+    <!-- XOTIMA -->
+    <section id="xotima" class="chapter">
+      <h2>Xotima: Bugungi inson uchun 7 amaliy xulosa</h2>
+      <ol>
+        <li><strong>Tavhid va ixlos</strong> – har bir ishni faqat Alloh uchun qilish.</li>
+        <li><strong>Sabr</strong> – Ayyub (a.s.), Ya’qub (a.s.), Bilol (r.a.) misollari.</li>
+        <li><strong>Tavba va qaytish</strong> – Ikrama (r.a.), Vahshiy (r.a.) ko‘rsatganidek.</li>
+        <li><strong>Adolat va mas’uliyat</strong> – Umar (r.a.) va Abu Bakr (r.a.) hayoti.</li>
+        <li><strong>Ilm va hikmat</strong> – Ali (r.a.), Ibn Abbos (r.a.) yo‘li.</li>
+        <li><strong>Jasorat va himoya</strong> – Hamza (r.a.), Xolid (r.a.) ruhida.</li>
+        <li><strong>Rahm-shafqat va kechirim</strong> – Yusuf (a.s.) va Muhammad (s.a.v.) axloqi.</li>
+      </ol>
+      <p style="margin-top:30px;">Alloh barchamizni payg‘ambarlar va sahobalar yo‘lidan yurishga muvaffaq qilsin. Ularning shifoati nasib etsin. Omin.</p>
+      <p style="text-align:center; margin-top:40px; font-style:italic;">
+        «Inna ma‘al-usri yusro» – Albatta, qiyinchilik bilan birga osonlik bor.
+      </p>
+    </section>
+
+    <footer id="footer">
+      <p>Payg‘ambarlar Tarixi va Ulug‘ Sahobalar Biografiyasi</p>
+      <p>Alloh roziligi uchun tayyorlangan</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // ===== Sidebar toggle =====
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // ===== Progress bar =====
+  const progressBar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scrollTop / height * 100) + '%';
+  });
+
+  // ===== Back to top button =====
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backTop.classList.add('show');
+    } else {
+      backTop.classList.remove('show');
+    }
+  });
+
+  // ===== Scroll reveal for chapters =====
+  const chapters = document.querySelectorAll('.chapter');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+  chapters.forEach(ch => observer.observe(ch));
+
+  // Footer
+  const footer = document.getElementById('footer');
+  const footerObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) footer.classList.add('visible');
+  }, { threshold: 0.3 });
+  footerObs.observe(footer);
+
+  // ===== Active link highlighting =====
+  const links = document.querySelectorAll('.sidebar a');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      if (window.scrollY >= top) current = section.getAttribute('id');
+    });
+    links.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // ===== Smooth close sidebar on mobile after click =====
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  });
+
+  // ===== Stagger animation for sidebar links =====
+  document.querySelectorAll('.sidebar a, .sidebar .part').forEach((el, i) => {
+    el.style.animationDelay = (i * 0.04) + 's';
+  });
+</script>
+</body>
+</html>
